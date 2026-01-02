@@ -26,3 +26,7 @@ Thumbs.db
 cypress/screenshots
 cypress/videos
 cypress/downloads
+
+vite.config.js
+vitest.config.js
+eslint.config.js

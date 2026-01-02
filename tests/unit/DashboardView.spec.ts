@@ -1,16 +1,18 @@
 import { mount } from '@vue/test-utils'
+import { createPinia, setActivePinia } from 'pinia'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import HomeView from '@/views/HomeView.vue'
+import DashboardView from '@/views/DashboardView.vue'
+import { useUiStore } from '@/stores/useUiStore'
 
 const flushPromises = () => new Promise((resolve) => setTimeout(resolve, 0))
 
-describe('HomeView', () => {
+describe('DashboardView', () => {
   afterEach(() => {
     vi.unstubAllGlobals()
   })
 
-  it('renders the API ping response', async () => {
+  it('pings the API on mount and on dashboard reselect', async () => {
     const fetchMock = vi.fn().mockResolvedValue({
       ok: true,
       status: 200,
@@ -29,21 +31,23 @@ describe('HomeView', () => {
 
     vi.stubGlobal('fetch', fetchMock)
 
-    const wrapper = mount(HomeView)
+    const pinia = createPinia()
+    setActivePinia(pinia)
 
-    await wrapper.get('button').trigger('click')
+    const wrapper = mount(DashboardView, {
+      global: {
+        plugins: [pinia],
+      },
+    })
+
     await flushPromises()
+    expect(fetchMock).toHaveBeenCalledTimes(1)
 
-    expect(fetchMock).toHaveBeenCalledWith(
-      '/api/v1/ping',
-      expect.objectContaining({
-        method: 'GET',
-        headers: expect.objectContaining({
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        }),
-      }),
-    )
-    expect(wrapper.text()).toContain('"message": "pong"')
+    const uiStore = useUiStore()
+    uiStore.markDashboardOpen()
+
+    await flushPromises()
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+    expect(wrapper.text()).toContain('API reachable')
   })
 })

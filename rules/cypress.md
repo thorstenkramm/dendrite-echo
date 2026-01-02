@@ -12,6 +12,9 @@ with **Vue 3 + TypeScript**, talking to a **REST backend** (dendrite-pulse).
 - Tests are **maintainable** (refactors don’t cause mass failures)
 - Tests provide **fast feedback** (component tests for logic, E2E for key flows)
 
+All requirements outlined as "acceptance criteria" must be covered by an end-to-end (E2E) test when implementing new
+features.
+
 ---
 
 ## Recommended test split (what to test where)

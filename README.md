@@ -131,3 +131,10 @@ and the `/api` proxy to be active.
 - Headed runs: `npm run test:e2e:open -- --browser chrome` or
   `npm run test:e2e:open -- --browser firefox`.
 - Headed with Electron: `npm run test:e2e:open -- --browser electron`.
+
+## Issues and feature requests
+
+- The project uses git and [GitHub](https://github.com/thorstenkramm/dendrite-echo) as VCS.
+- Issues and feature requests are tracked via [GitHub Issues](https://github.com/thorstenkramm/dendrite-echo/issues).
+- The command line utility `gh` can be used to interact with GitHub. Issues may contain images or references to images
+  with mockups, wireframes, or other visualizations to express a desired outcome.
