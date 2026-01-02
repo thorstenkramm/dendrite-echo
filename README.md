@@ -114,7 +114,7 @@ curl http://localhost:5173/api/v1/ping
 
 ### Cypress E2E
 
-Cypress tests expect the dev server at <http://localhost:5173>
+Cypress tests expect the dev server at <http://127.0.0.1:5173>
 and the `/api` proxy to be active.
 
 #### Cypress Prerequisites

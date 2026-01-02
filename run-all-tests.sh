@@ -30,7 +30,7 @@ echo " ✅ markdownlint ========================================================
 echo ""
 
 # E2E tests (requires dev server running)
-if curl -s http://localhost:5173 > /dev/null 2>&1; then
+if curl -s http://127.0.0.1:5173 > /dev/null 2>&1; then
   npm run test:e2e -- --browser electron
   echo " ✅ E2E tests ============================================"
 else

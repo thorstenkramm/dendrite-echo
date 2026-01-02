@@ -20,11 +20,10 @@ jobs:
       - name: NPM audit
         run: npm audit
       - name: Trivy scan
-        uses: aquasecurity/trivy-action@0.24.0
+        uses: aquasecurity/trivy-action@0.30.0
         with:
           scan-type: repo
           scan-ref: .
-          trivy-args: --skip-version-check
       - name: ESLint
         run: npm run lint
       - name: Code duplication
