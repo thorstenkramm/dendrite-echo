@@ -1,0 +1,46 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install
+        run: npm ci
+      - name: NPM audit
+        run: npm audit
+      - name: Trivy scan
+        uses: aquasecurity/trivy-action@0.24.0
+        with:
+          scan-type: repo
+          scan-ref: .
+          trivy-args: --skip-version-check
+      - name: ESLint
+        run: npm run lint
+      - name: Code duplication
+        run: npx jscpd --pattern "**/*.ts" --ignore "**/node_modules/**" --threshold 0 --exitCode 1
+      - name: Type check
+        run: npm run type-check
+      - name: Unit tests
+        run: npx vitest run
+      - name: Coverage
+        run: npx vitest run --coverage
+      - name: Build
+        run: npm run build
+      - name: Cypress E2E
+        uses: cypress-io/github-action@v6
+        with:
+          install: false
+          start: npm run dev -- --host 127.0.0.1 --port 5173
+          wait-on: http://127.0.0.1:5173
+          command: npm run test:e2e -- --browser electron

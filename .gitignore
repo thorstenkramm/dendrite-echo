@@ -1,0 +1,28 @@
+node_modules
+.idea
+dist
+tmp/
+coverage
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor directories
+.vscode
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Cypress artifacts
+cypress/screenshots
+cypress/videos
+cypress/downloads
